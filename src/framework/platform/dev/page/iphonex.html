@@ -1,0 +1,30 @@
+<style>
+.navigator-line {
+    position: fixed;
+    bottom: 10px;
+    background: #000;
+    width: 200px;
+    height: 0.5%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 1rem !important;
+    z-index: 99;
+}
+</style>
+<div id="navigator-line" class="navigator-line" />
+
+
+<script>
+  window.tinyWebDevTools = window.tinyWebDevTools || {};
+  setTimeout(function () {// 延迟一帧执行，因为该脚本在 platform 的构造函数中执行，调用 getPlatform 会导致循环调用
+    getPlatform().on('switchDebugOption', function (option, visible) {
+      if (option === 'navigator-line') {
+        var navigator = document.getElementById('navigator-line');
+        if (navigator) {
+          navigator.style.display = visible ? 'block' : 'none';
+        }
+      }
+    });
+  }, 10);
+</script>

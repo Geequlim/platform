@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"module": "ESNext",
+		"jsx": "preserve",
+		"lib": [
+			"DOM",
+			"ES2020"
+		],
+		"allowJs": true,
+		"sourceMap": true,
+		"inlineSources": true,
+		"moduleResolution": "node",
+		"baseUrl": "src",
+		"typeRoots": [
+			"node_modules/@types",
+			"Assets/Scripts/gen/puerts/Typing/csharp",
+			"src/types"
+		],
+		"skipLibCheck": true,
+		"noImplicitAny": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true
+	},
+	"exclude": [
+		"**/*.js",
+		"docs/",
+		"node_modules/",
+		"tiny_modules/",
+		"src/framework/tiny/utils/hash/js-md5.js",
+		"Assets/**/*.mjs",
+		"Library/**/*",
+		"UI/plugins/tiny/**/*"
+	]
+}

@@ -1,0 +1,310 @@
+<style>
+  .capsule-box {
+    position: fixed;
+    right: 3%;
+    top: 5%;
+    background: rgba(0, 0, 0, 0.16);
+    color: #fff;
+    border-radius: 1rem;
+    border: 1rpx solid rgba(255, 255, 255, 0.25);
+    z-index: 99;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
+  }
+
+  .capsule-box div {
+    padding: 0.3rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .capsule-box div:hover {
+    /* 设置边框样式 */
+    color: #fff;
+  }
+
+  .capsule-ellipsis {
+    vertical-align: middle;
+    border-right: 0.1rem solid rgba(255, 255, 255, 0.2);
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    width: 1.3rem;
+  }
+
+  .capsule-close {
+    vertical-align: middle;
+    margin-left: 0rem;
+    margin-right: 0.5rem;
+    width: 1.3rem;
+  }
+
+
+  #debug-panel-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: calc(100vw - 16px);
+    margin: 0 8px;
+    min-height: 220px;
+    background-color: #ECECEC;
+    border-radius: 8px 8px 0 0;
+    /* 左上角和右上角都设置为20像素的圆角 */
+    display: none;
+    z-index: 1;
+  }
+
+  .cancel {
+    position: absolute;
+    bottom: 0%;
+    text-align: center;
+    width: 100%;
+    height: 65px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: self-start;
+    justify-content: center;
+  }
+
+  .cancel button {
+    margin-top: 15px;
+    font: initial;
+    border: none;
+    background-color: transparent;
+    color: inherit;
+    outline: none;
+    font-size: 0.8rem;
+    letter-spacing: 5px;
+    font-weight: 800;
+    color: #109DA6;
+  }
+
+  .header {
+    display: flex;
+    margin: 15px;
+    margin-bottom: 2px;
+    align-items: center;
+  }
+
+  .header img {
+    width: 40px;
+  }
+
+  .header p {
+    margin: 2px 0;
+    font-size: 10px;
+
+  }
+
+  .box {
+    margin: 5px;
+    margin-top: 10px;
+    text-align: center;
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer */
+    user-select: none;
+    /* Standard syntax */
+  }
+
+  .box div {
+    width: 1rem;
+    height: 1rem;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+
+  .box img {
+    vertical-align: middle;
+    height: 100%;
+  }
+
+  .box span {
+    color: #5B5B5B;
+    font-size: 0.6rem;
+  }
+
+  .unselectable {
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer */
+    user-select: none;
+    /* Standard syntax */
+    -webkit-user-drag: none;
+    /* Safari */
+    -moz-user-drag: none;
+    /* Firefox */
+    -ms-user-drag: none;
+    /* Internet Explorer */
+    user-drag: none;
+    /* Standard syntax */
+  }
+</style>
+
+
+<div class="capsule-box unselectable">
+  <div class="unselectable">
+    <img
+      class="capsule-ellipsis"
+      id="capsule-open-debug-panel"
+      src="./tiny-tools/images/ellipsis.png"
+      alt=""
+      onclick="window.tinyWebDevTools.toggleDebugPanel()"
+    />
+  </div>
+
+  <div class="unselectable">
+    <img
+      alt=""
+      class="capsule-close"
+      src="./tiny-tools/images/close.png"
+      onclick="getPlatform().exit()"
+    />
+  </div>
+</div>
+
+<div id="debug-panel-container">
+  <div class="header unselectable">
+    <div style="margin-right: 10px;"> <img src="./icon.png" alt=""> </div>
+    <div>
+      <h5 id="debug-title-app-name" style="margin: 0px;"> 超级电玩城 </h5>
+      <p> <span id="debug-title-app-channel">dev</span> <span id="debug-title-app-version">1.0.0</span> </p>
+    </div>
+  </div>
+
+  <div style="margin-left: 10px; display: flex; align-items: center;">
+
+    <div class="box" onclick="getPlatform().share(tinysdk?.remoteConfigs?.share || {})">
+      <div>
+        <img src="./tiny-tools/images/share.png" alt="">
+      </div>
+      <span>分享应用</s>
+    </div>
+
+    <div class="box" onclick="window.tinyWebDevTools.toggleSwitch('vConsole')">
+      <div>
+        <img src="./tiny-tools/images/debug.png" alt="">
+      </div>
+      <span>开发日志</s>
+    </div>
+
+    <div class="box" onclick="window.tinyWebDevTools.toggleSwitch('performanceMonitor')">
+      <div> <img src="./tiny-tools/images/performance.png" alt=""></div>
+      <span>性能面板</s>
+    </div>
+
+    <div class="box" onclick="getPlatform().reload()" >
+      <div>
+        <img src="./tiny-tools/images/reload.png" alt="">
+      </div>
+      <span>重启应用</s>
+    </div>
+
+    <div class="box" onclick="window.tinyWebDevTools.toggleSwitch('navigator-line')">
+      <div>
+        <img src="./tiny-tools/images/phone.png" alt="" width="60%">
+      </div>
+      <span>屏幕模拟</s>
+    </div>
+  </div>
+
+  <div class="cancel unselectable">
+    <button onclick="window.tinyWebDevTools.closeDebugPanel()">关闭</button>
+  </div>
+</div>
+
+<script>
+  window.tinyWebDevTools = window.tinyWebDevTools || {};
+  const container = document.getElementById('debug-panel-container');
+  window.tinyWebDevTools.toggleDebugPanel = function () {
+    // 切换弹出页面的显示状态
+    if (container.style.display === 'block') {
+      container.style.display = 'none';
+      console.log(window);
+    } else {
+      container.style.display = 'block';
+    }
+  };
+  const openPanelButton = document.getElementById('capsule-open-debug-panel');
+  window.tinyWebDevTools.closeDebugPanel = function (event) {
+    container.style.display = 'none';
+  };
+  document.addEventListener('click', function() {
+    // 检查点击的目标元素是否位于弹出页面容器之外
+    if (!container.contains(event.target) && event.target !== openPanelButton) {
+      window.tinyWebDevTools.closeDebugPanel();
+    }
+  });
+
+  const name = document.getElementById('debug-title-app-name');
+  const channel = document.getElementById('debug-title-app-channel');
+  const version = document.getElementById('debug-title-app-version');
+
+  window.tinyWebDevTools.setAppInfo = function (config) {
+    name.innerText = config.name || 'tiny-game-kit';
+    channel.innerText = config.channel || 'dev';
+    version.innerText = config.version || '0.0.0';
+  }
+  config && window.tinyWebDevTools.setAppInfo(config);
+
+  (function(){
+    function waitUtil(condition, timeout = 0, checkInterval = 0) {
+      return new Promise((resolve, reject) => {
+        let duration = 0;
+        const timerID = setInterval(() => {
+          if (!condition) {
+            clearInterval(timerID);
+            reject(new Error('Invalid condition'));
+          }
+          duration += checkInterval;
+          const ret = condition();
+          if (ret) {
+            clearInterval(timerID);
+            resolve(ret);
+          } else if (timeout && duration >= timeout) {
+            clearInterval(timerID);
+            reject(new Error('Time Out'));
+          }
+        }, Math.max(checkInterval || 0, 0));
+      });
+    }
+    function getSwitchValue(key) {
+      return localStorage.getItem('tinyWebDevTools:' + key) === 'true';
+    }
+    function setSwitchValue(key, value) {
+      localStorage.setItem('tinyWebDevTools:' + key, value == true);
+    }
+    function syncSwitch(key, value) {
+      getPlatform().emit('switchDebugOption', key, value);
+    }
+    window.tinyWebDevTools.toggleSwitch = function (key) {
+      const value = !getSwitchValue(key);
+      setSwitchValue(key, value);
+      syncSwitch(key, value);
+      window.tinyWebDevTools.closeDebugPanel();
+      return !value;
+    }
+
+    waitUtil(()=> typeof game === 'object' && game.$startupStatus['application'] == 'setup').then(()=> {
+      window.tinyWebDevTools.setAppInfo({
+        name: game.options.name,
+        channel: getPlatform().channel,
+        version: `${game.options.application.version.name} (${game.options.application.version.code})`
+      });
+      syncSwitch('navigator-line', getSwitchValue('navigator-line'));
+      syncSwitch('vConsole', getSwitchValue('vConsole'));
+      setTimeout(()=> {
+        syncSwitch('performanceMonitor', getSwitchValue('performanceMonitor'));
+      }, 16 * 2);
+    });
+  })();
+</script>
